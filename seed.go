@@ -9,14 +9,13 @@ func seed() {
 	dbPengguna[4] = Pengguna{5, "Geby", "geby22@example.com", "geby456"}
 	dbPengguna[5] = Pengguna{6, "Caca", "cacaboom@example.com", "caca456"}
 	dbPengguna[6] = Pengguna{7, "Geebry", "geebry@example.com", "1234567"}
+
 	// Isi data pinjaman
-	dbDataPeminjam[0] = Pinjaman{1, 1000000, 12, 5, 12, false}
-	dbDataPeminjam[1] = Pinjaman{2, 2000000, 24, 4, 12, true}
-	dbDataPeminjam[2] = Pinjaman{3, 1500000, 18, 6, 12, false}
-	dbDataPeminjam[3] = Pinjaman{4, 2000000, 18, 6, 12, false}
-	dbDataPeminjam[4] = Pinjaman{5, 2500000, 18, 6, 12, false}
-	dbDataPeminjam[5] = Pinjaman{6, 1000000, 12, 5, 12, true}
-	dbDataPeminjam[6] = Pinjaman{7, 1200000, 12, 5, 12, false}
+	dbDataPeminjam[0] = Pinjaman{1, 1000000, 12, "bulan", 0.05, 12, 0, false}
+	dbDataPeminjam[1] = Pinjaman{2, 2000000, 24, "bulan", 0.04, 12, 0, true}
+	dbDataPeminjam[2] = Pinjaman{3, 1500000, 18, "bulan", 0.06, 12, 0, false}
+	dbDataPeminjam[3] = Pinjaman{4, 2000000, 18, "bulan", 0.06, 12, 0, false}
+	dbDataPeminjam[4] = Pinjaman{5, 2500000, 18, "bulan", 0.06, 12, 0, false}
+	dbDataPeminjam[5] = Pinjaman{6, 1000000, 12, "bulan", 0.05, 12, 0, true}
+	dbDataPeminjam[6] = Pinjaman{7, 1200000, 12, "bulan", 0.05, 12, 0, false}
 }
-// mengii data awal ke sistem . antara id peminjam dan id pengguna ada relasinya 
-// misal id pengguna 2 memuat id peminjam 2 artinya di di 2 memuat pinjaman elfan

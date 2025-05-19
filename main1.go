@@ -3,20 +3,22 @@ package main
 import "fmt"
 
 func main (){
-	seed()
-	userAktif := menuAwal()
+	if dbPengguna[0].idPengguna ==0{
+		seed()
+	}
+	userAktif := menuAwal() 
 	if userAktif == nil{
-		fmt.Println("Layanan selesai.")
+		//fmt.Println("Layanan selesai.")
 		return
 	}
 	menuUtama(userAktif)
 }
-func menuAwal()*Pengguna{
+func menuAwal()*Pengguna{ 
 	var pilihan int
-	var userAktif *Pengguna
+	var userAktif *Pengguna //dia tu hanya alamat aja yg bertipe pengguna
 
 	for {
-		fmt.Println("\n=== Selamat Datang di Aplikasi TraPinjaman ===")
+		fmt.Println("\n=== Selamat Datang di Aplikasi TraPinjaman ===") //func ini sebagai output 
 		fmt.Println("1. Login")
 		fmt.Println("2. Register")
 		fmt.Println("0. Keluar")
@@ -27,11 +29,11 @@ func menuAwal()*Pengguna{
 		case 1:
 			maxCoba := 3 // batasan login
 			for i:=0; i<maxCoba; i++{
-				user:= masuk(&dbPengguna)
+				user:= masuk(&dbPengguna) //di minta input nama sm pw dr auth.go, nanti hasilnya idtampung user
 				if user != nil{
 					fmt.Printf("\nHalo %s!\n", user.nama)
 					fmt.Println("Selamat Datang di TraPinjaman Online!")
-					userAktif = user
+					userAktif = user //setelah di sapa. datanya disimpan ke userAktif
 					return userAktif
 				}else{
 					fmt.Println("Username atau password anda salah!")
@@ -42,6 +44,7 @@ func menuAwal()*Pengguna{
 
 		case 2:
 			daftar(&dbPengguna)
+			//for i[i].dbPengguna 
 		case 0:
 			fmt.Println("Terima kasih.Sampai jumpa!")
 			return nil
@@ -49,7 +52,7 @@ func menuAwal()*Pengguna{
 		default:
 			fmt.Println("Pilihan anda tidak valid!")
 		}
-		return nil
+		//return nil
 		}
 	}
 
@@ -121,6 +124,15 @@ func menuUtama(userAktif *Pengguna) {
 		//fmt.Println("Pilihan tidak valid.")
 	//}
 func ajukanPinjaman(userAktif *Pengguna, db *[100]Pinjaman) {
+
+	for i:=0; i<len(db); i++{
+		if db[i].idPeminjam ==userAktif.idPengguna && !db[i].statusLunas{ //pinjaman di indeks ke i itu punya use ini, statusnya belum lunas artinya dia bakal nampilin peringatan
+			 fmt.Println("\nAnda masih memiliki pinjaman yang belum lunas.")
+			 fmt.Printf("Sisa pinjaman: Rp%d\n", db[i].jumlahPinjaman)
+			 fmt.Println("Silakan lunaskan terlebih dahulu sebelum mengajukan pinjaman baru.")
+			 return
+		}
+	}
 	var (
 		nNominal       int
 		nTenor         int
@@ -129,15 +141,23 @@ func ajukanPinjaman(userAktif *Pengguna, db *[100]Pinjaman) {
 		indeksTersedia int
 	)
 
-	fmt.Print("Masukkan nominal Dengan ketentuan tanpa menggunakan titik, contoh 10000000: ")
+	fmt.Println("Format input: tanpa titik atau koma (contoh: 1000000 untuk 1 juta)")
+	fmt.Print("Masukkan nominal: Rp ")
 	fmt.Scan(&nNominal)
 
 	pilihanTenor(nNominal)
 
-	fmt.Print("Pilih tenor: ")
+	fmt.Print("Pilih tenor(angka saja): ")
 	fmt.Scan(&nTenor)
-	fmt.Print("Pilih angsuran: ")
+	fmt.Print("Pilih angsuran(angka saja): ")
 	fmt.Scan(&nAngsuran)
+
+	var satuan string
+	if nTenor<=30{
+		satuan = "hari"
+	}else{
+		satuan ="bulan"
+	}
 
 	nBunga = hitungBunga(nNominal)
 	//insert ke userAktif.idPengguna == db.idPeminjam
@@ -151,6 +171,7 @@ func ajukanPinjaman(userAktif *Pengguna, db *[100]Pinjaman) {
 		idPeminjam:     userAktif.idPengguna,
 		jumlahPinjaman: nNominal,
 		tenor:          nTenor,
+		tenorSatuan : satuan,
 		bunga:          nBunga,
 		jumlahAngsuran: nAngsuran,
 		statusLunas:    false,
@@ -164,7 +185,12 @@ func pelunasan(userAktif *Pengguna, db *[100]Pinjaman) {
 			var bayar int
 			fmt.Print("Masukkan jumlah yang ingin dibayar: ")
 			fmt.Scan(&bayar)
+			fmt.Print("Masukkan metode pembayaran (contoh: Alfamart, Mbanking, dll): ")
+			var metode string
+			fmt.Scan(&metode)
+
 			db[i].jumlahPinjaman -= bayar
+			tambahRiwayat(userAktif.nama, bayar, metode, db[i].jumlahPinjaman)
 
 			if db[i].jumlahPinjaman <= 0 {
 				db[i].statusLunas = true
@@ -222,18 +248,18 @@ func pilihanTenor(nominal int) {
 		fmt.Println("Nominal melebihi batas dukungan.")
 	}
 }
-func tampilkanSemuaPinjaman(db *[100]Pinjaman) {
-	fmt.Println("\n=== DAFTAR PINJAMAN TERURUT ===")
-	for i := 0; i < len(db); i++ {
-		if db[i].idPeminjam != 0 {
-			fmt.Printf("- Pinjaman ke-%d\n", i+1)
-			fmt.Printf("  Jumlah: Rp%d\n", db[i].jumlahPinjaman)
-			fmt.Printf("  Tenor : %d bulan\n", db[i].tenor)
-			fmt.Printf("  Bunga : %.2f%%\n", db[i].bunga*100)
-			fmt.Println("-----------------------------")
-		}
-	}
-}
+//func tampilkanSemuaPinjaman(db *[100]Pinjaman) {
+	//fmt.Println("\n=== DAFTAR PINJAMAN TERURUT ===")
+	//for i := 0; i < len(db); i++ {
+		//if db[i].idPeminjam != 0 {
+			//fmt.Printf("- Pinjaman ke-%d\n", i+1)
+			//fmt.Printf("  Jumlah: Rp%d\n", db[i].jumlahPinjaman)
+			//fmt.Printf("  Tenor : %d bulan\n", db[i].tenor)
+			//fmt.Printf("  Bunga : %.2f%%\n", db[i].bunga*100)
+			//fmt.Println("-----------------------------")
+		//}
+	//}
+//}
 func tampilkanProfil(userAktif *Pengguna, db *[100]Pinjaman) {
 	fmt.Println("\n=== Profil Anda ===")
 	fmt.Printf("Nama    : %s\n", userAktif.nama)
@@ -242,7 +268,7 @@ func tampilkanProfil(userAktif *Pengguna, db *[100]Pinjaman) {
 	for i := 0; i < len(db); i++ {
 		if db[i].idPeminjam == userAktif.idPengguna {
 			fmt.Printf("Pinjaman: Rp%d\n", db[i].jumlahPinjaman)
-			fmt.Printf("Tenor   : %d bulan\n", db[i].tenor)
+			fmt.Printf("Tenor   : %d %s\n", db[i].tenor, db[i].tenorSatuan)
 			fmt.Printf("Status  : %s\n", 
 				func() string {
 					if db[i].statusLunas {
@@ -250,6 +276,7 @@ func tampilkanProfil(userAktif *Pengguna, db *[100]Pinjaman) {
 					}
 					return "Belum Lunas"
 				}())
+			tampilkanRiwayat(userAktif.nama)
 			return
 		}
 	}
@@ -258,10 +285,14 @@ func tampilkanProfil(userAktif *Pengguna, db *[100]Pinjaman) {
 func hapusPinjaman(userAktif *Pengguna, db *[100]Pinjaman) {
 	for i := 0; i < len(db); i++ {
 		if db[i].idPeminjam == userAktif.idPengguna {
-			db[i] = Pinjaman{} // kosongkan struct
+			if !db[i].statusLunas{
+				fmt.Println("Pinjaman belum lunas, tidak bisa di reset!.")
+				return
+			}
+			db[i] = Pinjaman{} // letsss kosongkan struct
 			fmt.Println("Pinjaman Anda berhasil dihapus.")
 			return
 		}
 	}
-	fmt.Println("Tidak ada pinjaman untuk dihapus.")
+	fmt.Println("Tidak ada pinjaman untuk dihapus.") // klo pinjaman nya sudah habis bakal di hapus 
 }

@@ -21,7 +21,7 @@ func masuk(db *[100]Pengguna) *Pengguna {
 
 	return nil
 }
-func daftar(db *[100]Pengguna) *Pengguna{
+func daftar(db *[100]Pengguna)*Pengguna{
 	var nama, email, password string
 
 	fmt.Println("\n===== Register ====")

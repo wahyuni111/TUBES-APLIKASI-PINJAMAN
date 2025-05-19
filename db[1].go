@@ -4,8 +4,11 @@ type Pinjaman struct {
 	idPeminjam     int
 	jumlahPinjaman int
 	tenor          int
+	tenorSatuan string //ini dibuat karna ada yg 30 hr , 12 bulan
 	bunga          float64
 	jumlahAngsuran int
+	jumlahCicilanDibayar int
+	//tanggalAjukan string
 	statusLunas    bool
 }
 type Pengguna struct {
