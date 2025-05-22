@@ -59,7 +59,7 @@ Tujuan utama proyek ini adalah sebagai latihan dan pembuktian kemampuan dalam me
   * `ajukanPinjaman()` : fungsi untuk mengajukan pinjaman bagi pengguna
   * `pelunasan()` : digunakan untuk membayar pinjaman pengguna
   * `tampilkanProfil()` : untuk menampilkan data pengguna dan status pinjaman, serta riwayat pelunasan
-  *  * `hapusPinajaman()` : digunakan untuk menghapus data pinjaman hanya jika sudah lunas
+  *  `hapusPinjaman()` : digunakan untuk menghapus data pinjaman hanya jika sudah lunas
   * `hitungBunga(nominal int) float64` : menentukan tingkat bunga sesuai jumlah pinjaman
   * `pilihanTenor(nominal int)` : menampilkan pilihan tenor & cicilan berdasarkan jumlah pinjaman
     
