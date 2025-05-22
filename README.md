@@ -31,6 +31,14 @@ Tujuan utama proyek ini adalah sebagai latihan dan pembuktian kemampuan dalam me
    ```
     go run . go
    ```
+## 📱 CONTOH PENGGUNAAN APLIKASI
+> Tampilan menu awal
+![WhatsApp Image 2025-05-22 at 21 14 47_ffa85421](https://github.com/user-attachments/assets/1cc255b5-2f3d-4327-b8a5-0a12de4aa868)
+
+> Tampilan menu utama pengguna
+![WhatsApp Image 2025-05-22 at 21 15 18_7496eb8f](https://github.com/user-attachments/assets/4eda661b-6dd6-4693-b879-eda00b462ef8)
+
+
    
 ## 📁 STRUKTUR FILE
 1. **main1.go** Fungsi utama & alur program
@@ -54,6 +62,7 @@ Tujuan utama proyek ini adalah sebagai latihan dan pembuktian kemampuan dalam me
   *  * `hapusPinajaman()` : digunakan untuk menghapus data pinjaman hanya jika sudah lunas
   * `hitungBunga(nominal int) float64` : menentukan tingkat bunga sesuai jumlah pinjaman
   * `pilihanTenor(nominal int)` : menampilkan pilihan tenor & cicilan berdasarkan jumlah pinjaman
+    
  
 ### 🔗 **auth.go**
 >_Modul yang menangani proses autentikasi pengguna_
@@ -72,8 +81,9 @@ Tujuan utama proyek ini adalah sebagai latihan dan pembuktian kemampuan dalam me
 * `var dbDataPeminjam [100]Pinjaman` : "database" pinjaman
 #### Fungsi :
 * `indeksKosongDbPeminjam(db *[100]Pinjaman)` : fungsi untuk mencari ideks kosong dalam array pinjaman
+  
 
-#### 🔗 **history.go**
+### 🔗 **history.go**
 >_Modul yang menangani pencatatan dan tampilan riwayar pinjaman pengguna_
 #### Tipe Data :
 * `type Pelunasan` : dengan field `nama`, `tanggal`, `jumlahBayar`, `metode`, `sisaPinjaman`
@@ -83,6 +93,7 @@ Tujuan utama proyek ini adalah sebagai latihan dan pembuktian kemampuan dalam me
 #### Fungsi :
 * `tambahRiwayat (...)` : fungsi yang mencatat pelunasan pinjaman ke dalam array dengan tanggal saat ini `(time.Now())`
 * `tampilkanRiwayat(nama string) : menampilkan daftar pelunasan pinjaman pengguna berdasarkan nama
+  
 
 ### 🔗 **seed.go**
 >_File berisi data dummy atau data awal yang digunakan agar program dapat dijalankan_
