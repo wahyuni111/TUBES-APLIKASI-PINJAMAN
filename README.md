@@ -1,5 +1,5 @@
 # INTRODUCTION
-## TRA-Pinjaman: Aplikasi Simpan Pinjam Online [Golang-CLI]
+## 💸 TRA-Pinjaman: Aplikasi Simpan Pinjam Online [Golang-CLI] 
 **TraPinjaman** adalah aplikasi simulasi pinjaman sederhana berbasis terminal yang dibuat menggunakan bahasa pemrograman **Golang**.
 Aplikasi ini dirancang untuk meniru alur sistem pinjaman dan kredit secara virtual, lengkap dengan fitur login, registrasi, pengajuan pinjaman, pelunasan cicilan, hingga pencatatan riwayat pembayaran. Seluruh data disimpan secara lokal menggunakan struktur data array, tanpa menggunakan database eksternal.
 Tujuan utama proyek ini adalah sebagai latihan dan pembuktian kemampuan dalam mengimplementasikan:
@@ -8,15 +8,15 @@ Tujuan utama proyek ini adalah sebagai latihan dan pembuktian kemampuan dalam me
  - Modularisasi fungsi
  - Penerapan logika **CRUD** (Create, Read, Update, Delete)
 
-## Fitur TRA-Pinjaman
+## ⛓️ Fitur TRA-Pinjaman
 | Fitur              | Keterangan  |
 ------------------------------------
 -  **Register & Login** || Pengguna dapat mendaftar dan masuk dengan nama, email, dan password unik
 -  **Ajukan Pinjaman**  || Simulasi pengajuan pinjaman sesuai nominal dan tenor (hari/bulan)
 -  **Pelunasan**        || Bayar cicilan sesuai jumlah angsuran, otomatis tercatat
--  **Lihat Profil**     ||Menampilkan informasi pengguna dan status pinjaman
--  **Riwayat Pelunasan** ||Menyimpan histori transaksi (tanggal, jumlah bayar, metode, sisa)
--  **ResetPinjaman**     ||Menghapus pinjaman aktif jika dibutuhkan
+-  **Lihat Profil**     || Menampilkan informasi pengguna dan status pinjaman
+-  **Riwayat Pelunasan** || Menyimpan histori transaksi (tanggal, jumlah bayar, metode, sisa)
+-  **ResetPinjaman**     || Menghapus pinjaman aktif jika dibutuhkan
 
 ## 🛠 TEKNOLOGI & TOOLS
 - **Golang** `v1.xx`
@@ -24,12 +24,33 @@ Tujuan utama proyek ini adalah sebagai latihan dan pembuktian kemampuan dalam me
 -  CLI Terminal
 -  Git & GitHub
 
-## STRUKTUR FILE
-1. **main.go** Fungsi utama & alur program
+## 👨‍💻 CARA MENJALANKAN APLIKASI
+1. Patikan Go ver 1.xx sudah terinstall di sistem Anda (OS : Windows, macOS, atau Linux)
+2. Kloning Repsositori atau mengekstrak file `.zip` terlebih dahulu
+3. Lalu jalankan program dengan
+   ```
+   go run . go
+   ```
+   
+## 📁 STRUKTUR FILE
+1. **main1.go** Fungsi utama & alur program
 2. **auth.go** Login & register
 3. **db.go** Struktur data & database array
 4. **history.go** Pelunasan dan data riwayat setoran
-5. **seed.go** Data dummy awal pengguna & pinjaman
-6. **READ-ME**
+5. **seed.go** Data awal pengguna & pinjaman
+6. **go.mod** file konfigurasi modul Go
+7. **READ-ME** Dokumentasi proyek
 
-7. 
+## 📂 PENJELASAN MODUL PER FILE
+🔸**main1.go**
+
+ _File utama yang berfungsi sebagai entry point aplikasi_
+  * `main ()` : Fungsi utama aplikasi. Fungsi yang menampilkan menu awal (login, regrister, exit), dan juga menu utama pengguna (ajukan pinjaman, bayar cicilan, riwayat, logout)
+
+🔸**auth.go**
+
+_
+
+
+
+   
